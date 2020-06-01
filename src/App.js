@@ -1,6 +1,5 @@
 import React ,{useState}from 'react';
 import Todo from './components/Todo';
-import './App.css';
 import Form from './components/Form';
 import FilterButton from './components/FilterButton'
 import {nanoid} from "nanoid";
@@ -21,6 +20,16 @@ function App(props) {
     const remainingTasks= tasks.filter(task => id!==task.id)
     setTasks(remainingTasks);
   }
+   
+  function editTask(id,newName){
+    const editedTasks= tasks.map(task =>{
+      if(id===task.id){
+        return{...task,name:newName}
+      } 
+      return tasks
+    });
+    setTasks(editedTasks);
+  }
 
   const taskList = tasks.map(task =>( 
     <Todo  
@@ -30,6 +39,7 @@ function App(props) {
     key={task.id}
     toggleTaskCompleted={toggleTaskCompleted}
     deleteTask={deleteTask}
+    editTask={editTask}
     />
     ));
     function addTask(name) {
